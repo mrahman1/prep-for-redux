@@ -8,7 +8,10 @@
   "dependencies": {
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+<<<<<<< HEAD
     "react-redux": "^5.0.6",
+=======
+>>>>>>> 437b910cfb247473edf98a5f610668278c16b039
     "redux": "^3.7.2"
   },
   "scripts": {
