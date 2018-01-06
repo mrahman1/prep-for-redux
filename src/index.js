@@ -3,6 +3,29 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import logo from './logo.svg';
 import './App.css';
+import {createStore} from 'redux'
+
+//reducer takes in an action and a state
+const reducer = (state = {count: 101}, action) => {
+  console.log('state:', state);
+  console.log('action:', action);
+
+  switch(action.type){
+    case 'INCREMENT':
+      return {count: state.count + 1}
+    case 'DECREMENT':
+      return {count: state.count - 1}
+    default:
+      return state;
+  }
+}
+
+const store = createStore(reducer)
+const apple = console.log('apple')
+
+store.subscribe = (() => {
+  console.log('the new state is',store.getState());
+});
 
 class App extends Component {
   render() {
@@ -19,6 +42,7 @@ class Header extends Component {
   render() {
     return (
       <header className="App-header">
+
         <img src={logo} className="App-logo" alt="logo" />
         <h1 className="App-title">Welcome to React</h1>
       </header>
@@ -27,29 +51,28 @@ class Header extends Component {
 }
 
 class Counter extends Component {
-  state = { count: 0 };
 
   increment = () => {
-    this.setState(prevState => ({ count: prevState.count + 1 }));
+    store.dispatch({type: 'INCREMENT'})
   };
 
   decrement = () => {
-    this.setState(prevState => ({ count: prevState.count - 1 }));
+    store.dispatch({type: 'DECREMENT'})
+    // this.setState(prevState => ({ count: prevState.count - 1 }));
   };
 
-  renderDescription = () => {
-    const remainder = this.state.count % 5;
-    const upToNext = 5 - remainder;
-    return `The current count is less than ${this.state.count + upToNext}`;
-  };
+  // renderDescription = () => {
+  //   const remainder = store.getState % 5;
+  //   const upToNext = 5 - remainder;
+  //   return `The current count is less than ${store.getState() + upToNext}`;
+  // };
 
   render() {
     return (
       <div className="Counter">
-        <h1>{this.state.count}</h1>
-        <button onClick={this.decrement}> - </button>
-        <button onClick={this.increment}> + </button>
-        <h3>{this.renderDescription()}</h3>
+        <h1>{store.getState().count}</h1>
+        <button onClick={this.decrement.count}> - </button>
+        <button onClick={this.increment.count}> + </button>
       </div>
     );
   }
